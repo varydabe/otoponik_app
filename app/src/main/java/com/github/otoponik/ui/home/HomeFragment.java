@@ -82,8 +82,8 @@ public class HomeFragment extends Fragment {
                 Log.d(TAG, "Kelembapan is: " + kelembapan);
 
                 phDisplay.setText(ph);
-                suhuDisplay.setText(suhu);
-                kelembapanDisplay.setText(kelembapan);
+                suhuDisplay.setText(suhu + "\u00B0");
+                kelembapanDisplay.setText(kelembapan + "%");
             }
 
             @Override
