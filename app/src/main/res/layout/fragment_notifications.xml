@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="100dp"
+    android:layout_marginHorizontal="10dp"
+    tools:context=".ui.notifications.NotificationsFragment">
+
+    <LinearLayout
+        android:id="@+id/linear_riwayat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/card_date"
+            android:layout_marginTop="4dp">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/text_tanggal_riwayat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:textAlignment="textStart"
+                    android:textSize="30sp"
+                    android:textColor="@color/primary"
+                    android:textStyle="bold"
+                    android:text="27"
+                    />
+                <TextView
+                    android:id="@+id/text_hari_riwayat"
+                    android:layout_toEndOf="@+id/text_tanggal_riwayat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:textAlignment="textStart"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:text="Sabtu"
+                    />
+                <TextView
+                    android:id="@+id/text_bulan_riwayat"
+                    android:layout_toEndOf="@+id/text_tanggal_riwayat"
+                    android:layout_below="@+id/text_hari_riwayat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:textAlignment="textStart"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:text="November 2020"
+                    />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/white"
+            android:layout_marginLeft="40dp"
+            >
+
+            <Button
+                android:id="@+id/lihat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lihat"
+                android:textSize="15sp"
+                android:backgroundTint="@color/secondary"
+                android:layout_margin="10dp"
+                android:textStyle="bold"
+                android:textColor="@color/white">
+            </Button>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/text_alamat"
+        android:layout_below="@+id/linear_riwayat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:text="Caturtunggal, Depok, Sleman"
+        />
+
+    <TextView
+        android:id="@+id/line_riwayat"
+        android:layout_below="@+id/text_alamat"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@drawable/line"
+        android:layout_margin="6dp"
+        >
+    </TextView>
+
+    <TableLayout
+        android:id="@+id/table_riwayat"
+        android:layout_below="@id/line_riwayat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        >
+
+        <TableRow
+            android:background="@color/white">
+            <TextView
+                android:layout_column="1"
+                android:text="Waktu"
+                android:textColor="@color/black"
+                android:padding="3dip"
+                android:layout_marginHorizontal="20dp"/>
+            <TextView
+                android:layout_column="2"
+                android:text="Informasi"
+                android:textColor="@color/black"
+                android:gravity="right"
+                android:padding="3dip"
+                android:layout_marginHorizontal="20dp"/>
+        </TableRow>
+    </TableLayout>
+
+    <TextView
+        android:id="@+id/textRiwayat"
+        android:layout_below="@+id/table_riwayat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:layout_marginHorizontal="100dp"
+        android:layout_marginBottom="10dp">
+    </TextView>
+
+</RelativeLayout>
