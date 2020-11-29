@@ -7,24 +7,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextClock;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-
 import com.github.otoponik.R;
-import com.github.otoponik.ui.dashboard.WaktuPenyiraman;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Map;
-
 import static android.content.ContentValues.TAG;
+
 
 public class HomeFragment extends Fragment {
 
@@ -41,6 +37,7 @@ public class HomeFragment extends Fragment {
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+
         dateDisplay = root.findViewById(R.id.text_tanggal);
         dayDisplay = root.findViewById(R.id.text_hari);
         phDisplay = root.findViewById(R.id.text_ph);
@@ -51,7 +48,7 @@ public class HomeFragment extends Fragment {
         // Firebase
         database = FirebaseDatabase.getInstance();
 
-        // Display Date and Day
+        // Display Today Date and Day
         calendar = Calendar.getInstance();
         dateFormat = new SimpleDateFormat("dd MMMM yyyy");
         dayFormat = new SimpleDateFormat("EEEE");
@@ -62,15 +59,16 @@ public class HomeFragment extends Fragment {
         dateDisplay.setText(date);
         dayDisplay.setText(day);
 
+        // Get current status data from database
         readFromFirebase();
 
+        // Testing purpose
         textClock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 postDataFirebase();
             }
         });
-
         return root;
     }
 
@@ -79,7 +77,7 @@ public class HomeFragment extends Fragment {
         DatabaseReference statusRef = database.getReference("status");
 
         // Read from the database when data change
-        // Thinking about microcontroller send data everyhour.
+        // Thinking about microcontroller send data every hour.
         statusRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -90,6 +88,7 @@ public class HomeFragment extends Fragment {
                 suhu = status.getSuhu();
                 kelembapan = status.getKelembapan();
 
+                // Log for testing
                 Log.d(TAG, "pH is: " + ph);
                 Log.d(TAG, "Suhu is: " + suhu);
                 Log.d(TAG, "Kelembapan is: " + kelembapan);
@@ -101,7 +100,6 @@ public class HomeFragment extends Fragment {
                 // Every data change, post to firebase
                 postDataFirebase();
             }
-
             @Override
             public void onCancelled(DatabaseError error) {
                 // Failed to read value
@@ -109,7 +107,7 @@ public class HomeFragment extends Fragment {
             }
         });
     }
-
+    // Post to database with different reference
     private void postDataFirebase() {
         DatabaseReference riwayatRef = database.getReference(String.valueOf(date) + "/" + String.valueOf(time));
 
@@ -118,6 +116,5 @@ public class HomeFragment extends Fragment {
 
         riwayatRef.setValue(status_tumbuhan);
     }
-
 }
 

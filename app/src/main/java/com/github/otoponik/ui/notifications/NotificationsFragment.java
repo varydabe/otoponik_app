@@ -1,6 +1,5 @@
 package com.github.otoponik.ui.notifications;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,23 +9,14 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.app.DatePickerDialog;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import com.github.otoponik.R;
-
-import org.w3c.dom.Text;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
+
 
 public class NotificationsFragment extends Fragment {
 
@@ -55,6 +45,7 @@ public class NotificationsFragment extends Fragment {
         monthFormat = new SimpleDateFormat("MMMM yyyy");
         dayFormat = new SimpleDateFormat("EEEE");
 
+        // Set Default to today time
         Calendar calendar = Calendar.getInstance();
         tanggal = dateFormat.format(calendar.getTime());
         bulan = monthFormat.format(calendar.getTime());
@@ -94,6 +85,7 @@ public class NotificationsFragment extends Fragment {
         lihatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // more feature will be added later
                 boolean status = true;
                 Log.d("clicked", String.valueOf(status));
             }

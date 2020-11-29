@@ -8,20 +8,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
 import com.github.otoponik.R;
 import com.github.otoponik.ui.home.Status;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.HashMap;
 import java.util.Map;
+
 
 public class DashboardFragment extends Fragment {
 
@@ -37,6 +32,7 @@ public class DashboardFragment extends Fragment {
         dashboardViewModel =
                 new ViewModelProvider(this).get(DashboardViewModel.class);
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
+
         waktu_set = root.findViewById(R.id.text_waktu_set);
         numpicker_hours = root.findViewById(R.id.numpicker_hours);
         numpicker_minutes = root.findViewById(R.id.numpicker_minutes);
@@ -55,11 +51,15 @@ public class DashboardFragment extends Fragment {
                 jam = String.format("%02d", hour);
                 menit = String.format("%02d", minute);
                 detik =  String.format("%02d", second);
+
+                // Testing purpose
                 Log.d("Jam : ", jam);
                 Log.d("Menit : ", menit);
                 Log.d("Detik : ", detik);
-                waktu_set.setText("Waktu berhasil diatur: " + jam + ":" + menit + ":" + detik);
 
+                waktu_set.setText("Waktu penyiraman berhasil diatur: " + jam + ":" + menit + ":" + detik);
+
+                // Write to database WaktuPenyiraman
                 writeToFirebase();
             }
         });
@@ -96,7 +96,7 @@ public class DashboardFragment extends Fragment {
     }
 
     private void writeToFirebase() {
-        // Write a message to the database
+        // Write waktu penyiraman data to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference timeRef = database.getReference("waktuPenyiraman");
         DatabaseReference statusRef = database.getReference("status");
@@ -104,10 +104,12 @@ public class DashboardFragment extends Fragment {
         WaktuPenyiraman waktu_penyiraman = new WaktuPenyiraman(hour, minute, second);
         Map<String, Object> waktuPenyiraman = waktu_penyiraman.toMap();
 
+        timeRef.setValue(waktuPenyiraman);
+
+        // Write status data for testing
         Status status = new Status(String.valueOf(hour), String.valueOf(minute), String.valueOf(second));
         Map<String, Object> status_tumbuhan = status.toMap();
 
-        timeRef.setValue(waktuPenyiraman);
         statusRef.setValue(status_tumbuhan);
     }
 }
