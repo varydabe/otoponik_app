@@ -36,23 +36,25 @@ public class DashboardFragment extends Fragment {
 
         initializePicker();
 
+        button_atur.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("Jam : ", String.valueOf(numpicker_hours.getValue()));
+                Log.d("Menit : ", String.valueOf(numpicker_minutes.getValue()));
+                Log.d("Detik : ", String.valueOf(numpicker_seconds.getValue()));
+            }
+        });
+
         return root;
     }
 
     private void initializePicker() {
-        numpicker_hours.setMinValue(01);
+        numpicker_hours.setMinValue(00);
         numpicker_hours.setMaxValue(24);
         numpicker_hours.setFormatter(new NumberPicker.Formatter() {
             @Override
             public String format(int i) {
                 return String.format("%02d", i);
-            }
-        });
-
-        numpicker_hours.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                hour = numpicker_hours.getValue();
             }
         });
 
@@ -64,12 +66,6 @@ public class DashboardFragment extends Fragment {
                 return String.format("%02d", i);
             }
         });
-        numpicker_hours.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                minute = numpicker_minutes.getValue();
-            }
-        });
 
         numpicker_seconds.setMinValue(00);
         numpicker_seconds.setMaxValue(60);
@@ -79,11 +75,6 @@ public class DashboardFragment extends Fragment {
                 return String.format("%02d", i);
             }
         });
-        numpicker_seconds.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                second = numpicker_seconds.getValue();
-            }
-        });
+
     }
 }
