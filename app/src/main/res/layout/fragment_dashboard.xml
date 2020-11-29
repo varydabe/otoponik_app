@@ -88,7 +88,8 @@
             android:id="@+id/numpicker_hours"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scrollbarSize="50dp">
+            android:scaleX="1.2"
+            android:scaleY="1.2">
 
         </NumberPicker>
 
@@ -98,7 +99,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:scrollbarSize="50dp">
+            android:scaleX="1.2"
+            android:scaleY="1.2">
 
         </NumberPicker>
 
@@ -106,7 +108,8 @@
             android:id="@+id/numpicker_seconds"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scrollbarSize="50dp">
+            android:scaleX="1.2"
+            android:scaleY="1.2">
 
         </NumberPicker>
 
