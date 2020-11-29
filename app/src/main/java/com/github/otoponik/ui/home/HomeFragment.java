@@ -14,6 +14,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.github.otoponik.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -43,6 +45,8 @@ public class HomeFragment extends Fragment {
         day = dayFormat.format(calendar.getTime());
         dateDisplay.setText(date);
         dayDisplay.setText(day);
+
+
         
         return root;
     }

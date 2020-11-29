@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "837461056162",
+    "firebase_url": "https://otoponik.firebaseio.com",
+    "project_id": "otoponik",
+    "storage_bucket": "otoponik.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:837461056162:android:ea168e16b1d0f1a99655fb",
+        "android_client_info": {
+          "package_name": "com.github.otoponik"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "837461056162-jfilvj60le2m4h1vaitsbp4h1ilpg9oa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuzkvdZTRyGxKOd5f_IeFtpC9rnQ1SijQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "837461056162-jfilvj60le2m4h1vaitsbp4h1ilpg9oa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

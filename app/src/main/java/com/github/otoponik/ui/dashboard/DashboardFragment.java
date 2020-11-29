@@ -16,6 +16,11 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.github.otoponik.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class DashboardFragment extends Fragment {
 
@@ -23,7 +28,7 @@ public class DashboardFragment extends Fragment {
     private NumberPicker numpicker_hours, numpicker_minutes, numpicker_seconds;
     private Button button_atur;
     private TextView waktu_set;
-    private int hour, minute, second;
+    public int hour, minute, second;
     private String jam, menit, detik;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -42,19 +47,24 @@ public class DashboardFragment extends Fragment {
         button_atur.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                jam = String.format("%02d", numpicker_hours.getValue());
-                menit = String.format("%02d", numpicker_minutes.getValue());
-                detik =  String.format("%02d", numpicker_seconds.getValue());
+                hour = numpicker_hours.getValue();
+                minute = numpicker_minutes.getValue();
+                second = numpicker_seconds.getValue();
+
+                jam = String.format("%02d", hour);
+                menit = String.format("%02d", minute);
+                detik =  String.format("%02d", second);
                 Log.d("Jam : ", jam);
                 Log.d("Menit : ", menit);
                 Log.d("Detik : ", detik);
                 waktu_set.setText("Waktu berhasil diatur: " + jam + ":" + menit + ":" + detik);
+
+                writeToFirebase();
             }
         });
 
         return root;
     }
-
     private void initializePicker() {
         numpicker_hours.setMinValue(00);
         numpicker_hours.setMaxValue(24);
@@ -82,6 +92,16 @@ public class DashboardFragment extends Fragment {
                 return String.format("%02d", i);
             }
         });
+    }
 
+    private void writeToFirebase() {
+        // Write a message to the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference timeRef = database.getReference("waktuPenyiraman");
+
+        WaktuPenyiraman waktu_penyiraman = new WaktuPenyiraman(hour, minute, second);
+        Map<String, Object> waktuPenyiraman = waktu_penyiraman.toMap();
+
+        timeRef.setValue(waktuPenyiraman);
     }
 }
