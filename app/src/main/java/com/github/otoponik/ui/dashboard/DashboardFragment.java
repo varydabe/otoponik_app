@@ -16,6 +16,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.github.otoponik.R;
+import com.github.otoponik.ui.home.Status;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -98,10 +99,15 @@ public class DashboardFragment extends Fragment {
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference timeRef = database.getReference("waktuPenyiraman");
+        DatabaseReference statusRef = database.getReference("status");
 
         WaktuPenyiraman waktu_penyiraman = new WaktuPenyiraman(hour, minute, second);
         Map<String, Object> waktuPenyiraman = waktu_penyiraman.toMap();
 
+        Status status = new Status(hour, minute, second);
+        Map<String, Object> status_tumbuhan = status.toMap();
+
         timeRef.setValue(waktuPenyiraman);
+        statusRef.setValue(status_tumbuhan);
     }
 }
