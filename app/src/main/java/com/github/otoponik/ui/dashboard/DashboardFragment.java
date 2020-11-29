@@ -104,7 +104,7 @@ public class DashboardFragment extends Fragment {
         WaktuPenyiraman waktu_penyiraman = new WaktuPenyiraman(hour, minute, second);
         Map<String, Object> waktuPenyiraman = waktu_penyiraman.toMap();
 
-        Status status = new Status(hour, minute, second);
+        Status status = new Status(String.valueOf(hour), String.valueOf(minute), String.valueOf(second));
         Map<String, Object> status_tumbuhan = status.toMap();
 
         timeRef.setValue(waktuPenyiraman);

@@ -1,21 +1,19 @@
 package com.github.otoponik.ui.home;
 
-import android.nfc.Tag;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextClock;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.github.otoponik.R;
+import com.github.otoponik.ui.dashboard.WaktuPenyiraman;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,16 +22,19 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Map;
 
 import static android.content.ContentValues.TAG;
 
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
-    private TextView dateDisplay, dayDisplay, timeDisplay, phDisplay, suhuDisplay, kelembapanDisplay;
+    private TextView dateDisplay, dayDisplay, phDisplay, suhuDisplay, kelembapanDisplay;
     private Calendar calendar;
     private SimpleDateFormat dateFormat, dayFormat, timeFormat;
     private String date, day, time, ph, suhu, kelembapan;
+    private TextClock textClock;
+    private FirebaseDatabase database;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -42,40 +43,52 @@ public class HomeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         dateDisplay = root.findViewById(R.id.text_tanggal);
         dayDisplay = root.findViewById(R.id.text_hari);
-        timeDisplay = root.findViewById(R.id.text_waktu);
         phDisplay = root.findViewById(R.id.text_ph);
         suhuDisplay = root.findViewById(R.id.text_suhu);
         kelembapanDisplay = root.findViewById(R.id.text_kelembapan);
+        textClock = root.findViewById(R.id.text_waktu);
+
+        // Firebase
+        database = FirebaseDatabase.getInstance();
 
         // Display Date and Day
         calendar = Calendar.getInstance();
         dateFormat = new SimpleDateFormat("dd MMMM yyyy");
         dayFormat = new SimpleDateFormat("EEEE");
+        timeFormat = new SimpleDateFormat("k:mm");
         date = dateFormat.format(calendar.getTime());
         day = dayFormat.format(calendar.getTime());
+        time = timeFormat.format(calendar.getTime());
         dateDisplay.setText(date);
         dayDisplay.setText(day);
 
         readFromFirebase();
+
+        textClock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                postDataFirebase();
+            }
+        });
+
         return root;
     }
 
     private void readFromFirebase() {
         // Get database reference
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference statusRef = database.getReference("status");
 
-
-        // Read from the database
+        // Read from the database when data change
+        // Thinking about microcontroller send data everyhour.
         statusRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 Status status = dataSnapshot.getValue(Status.class);
-                ph = String.valueOf(status.getPh());
-                suhu = String.valueOf(status.getSuhu());
-                kelembapan = String.valueOf(status.getKelembapan());
+                ph = status.getPh();
+                suhu = status.getSuhu();
+                kelembapan = status.getKelembapan();
 
                 Log.d(TAG, "pH is: " + ph);
                 Log.d(TAG, "Suhu is: " + suhu);
@@ -84,6 +97,9 @@ public class HomeFragment extends Fragment {
                 phDisplay.setText(ph);
                 suhuDisplay.setText(suhu + "\u00B0");
                 kelembapanDisplay.setText(kelembapan + "%");
+
+                // Every data change, post to firebase
+                postDataFirebase();
             }
 
             @Override
@@ -93,5 +109,15 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+
+    private void postDataFirebase() {
+        DatabaseReference riwayatRef = database.getReference(String.valueOf(date) + "/" + String.valueOf(time));
+
+        Status status = new Status(ph, suhu, kelembapan);
+        Map<String, Object> status_tumbuhan = status.toMap();
+
+        riwayatRef.setValue(status_tumbuhan);
+    }
+
 }
 

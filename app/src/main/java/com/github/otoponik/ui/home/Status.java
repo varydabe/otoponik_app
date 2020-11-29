@@ -4,13 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Status {
-    int ph, suhu, kelembapan;
+    String ph, suhu, kelembapan;
 
     public Status() {
         // empty default constructor, necessary for Firebase to be able to deserialize Status
     }
 
-    public Status(int ph, int suhu, int kelembapan) {
+    public Status(String ph, String suhu, String kelembapan) {
         this.ph = ph;
         this.suhu = suhu;
         this.kelembapan = kelembapan;
@@ -25,15 +25,15 @@ public class Status {
         return result;
     }
 
-    public int getPh() {
+    public String getPh() {
         return ph;
     }
 
-    public int getSuhu() {
+    public String getSuhu() {
         return suhu;
     }
 
-    public int getKelembapan() {
+    public String getKelembapan() {
         return kelembapan;
     }
 

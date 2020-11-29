@@ -70,6 +70,8 @@
                 android:layout_margin="10dp"
                 android:textStyle="bold"
                 android:format24Hour="HH:mm:ss"
+                android:clickable="true"
+                android:contextClickable="true"
                 android:textColor="@color/black">
             </TextClock>
 
