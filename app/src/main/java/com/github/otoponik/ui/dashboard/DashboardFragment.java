@@ -22,13 +22,16 @@ public class DashboardFragment extends Fragment {
     private DashboardViewModel dashboardViewModel;
     private NumberPicker numpicker_hours, numpicker_minutes, numpicker_seconds;
     private Button button_atur;
+    private TextView waktu_set;
     private int hour, minute, second;
+    private String jam, menit, detik;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         dashboardViewModel =
                 new ViewModelProvider(this).get(DashboardViewModel.class);
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        waktu_set = root.findViewById(R.id.text_waktu_set);
         numpicker_hours = root.findViewById(R.id.numpicker_hours);
         numpicker_minutes = root.findViewById(R.id.numpicker_minutes);
         numpicker_seconds = root.findViewById(R.id.numpicker_seconds);
@@ -39,9 +42,13 @@ public class DashboardFragment extends Fragment {
         button_atur.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("Jam : ", String.valueOf(numpicker_hours.getValue()));
-                Log.d("Menit : ", String.valueOf(numpicker_minutes.getValue()));
-                Log.d("Detik : ", String.valueOf(numpicker_seconds.getValue()));
+                jam = String.format("%02d", numpicker_hours.getValue());
+                menit = String.format("%02d", numpicker_minutes.getValue());
+                detik =  String.format("%02d", numpicker_seconds.getValue());
+                Log.d("Jam : ", jam);
+                Log.d("Menit : ", menit);
+                Log.d("Detik : ", detik);
+                waktu_set.setText("Waktu berhasil diatur: " + jam + ":" + menit + ":" + detik);
             }
         });
 

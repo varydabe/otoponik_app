@@ -74,7 +74,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:cardBackgroundColor="@color/white"
-            android:layout_marginLeft="40dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginStart="70dp"
             >
 
             <Button
@@ -84,7 +85,6 @@
                 android:text="Lihat"
                 android:textSize="15sp"
                 android:backgroundTint="@color/secondary"
-                android:layout_margin="10dp"
                 android:textStyle="bold"
                 android:textColor="@color/white">
             </Button>
