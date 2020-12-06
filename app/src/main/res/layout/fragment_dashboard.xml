@@ -44,7 +44,7 @@
         android:textAlignment="center"
         android:textSize="15sp"
         android:textColor="@color/black"
-        android:text="Atur Waktu Penyiraman"
+        android:text="Atur Jam Penyiraman"
         />
 
     <LinearLayout

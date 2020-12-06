@@ -57,7 +57,7 @@ public class DashboardFragment extends Fragment {
                 Log.d("Menit : ", menit);
                 Log.d("Detik : ", detik);
 
-                waktu_set.setText("Waktu penyiraman berhasil diatur: " + jam + ":" + menit + ":" + detik);
+                waktu_set.setText("Tanaman akan disiram pada: " + jam + ":" + menit + ":" + detik);
 
                 // Write to database WaktuPenyiraman
                 writeToFirebase();
