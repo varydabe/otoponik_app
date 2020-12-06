@@ -99,7 +99,6 @@ public class DashboardFragment extends Fragment {
         // Write waktu penyiraman data to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference timeRef = database.getReference("waktuPenyiraman");
-        DatabaseReference statusRef = database.getReference("status");
 
         WaktuPenyiraman waktu_penyiraman = new WaktuPenyiraman(hour, minute, second);
         Map<String, Object> waktuPenyiraman = waktu_penyiraman.toMap();
@@ -107,9 +106,10 @@ public class DashboardFragment extends Fragment {
         timeRef.setValue(waktuPenyiraman);
 
         // Write status data for testing
-        Status status = new Status(String.valueOf(hour), String.valueOf(minute), String.valueOf(second));
-        Map<String, Object> status_tumbuhan = status.toMap();
+        // DatabaseReference statusRef = database.getReference("status");
+        //Status status = new Status(String.valueOf(hour), String.valueOf(minute), String.valueOf(second));
+        //Map<String, Object> status_tumbuhan = status.toMap();
 
-        statusRef.setValue(status_tumbuhan);
+        //statusRef.setValue(status_tumbuhan);
     }
 }
