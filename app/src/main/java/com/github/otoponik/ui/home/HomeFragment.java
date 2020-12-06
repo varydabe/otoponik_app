@@ -97,8 +97,8 @@ public class HomeFragment extends Fragment {
                 suhuDisplay.setText(suhu + "\u00B0");
                 kelembapanDisplay.setText(kelembapan + "%");
 
-                // Every data change, post to firebase
-                postDataFirebase();
+                // Every data change, post to firebase (not used)
+                //postDataFirebase();
             }
             @Override
             public void onCancelled(DatabaseError error) {
