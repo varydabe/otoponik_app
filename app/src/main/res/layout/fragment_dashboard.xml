@@ -71,15 +71,6 @@
 
         </TextView>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="15dp"
-            android:textColor="@color/black"
-            android:text="Detik">
-
-        </TextView>
-
     </LinearLayout>
 
     <TextView
@@ -110,15 +101,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:scaleX="1.2"
-            android:scaleY="1.2">
-
-        </NumberPicker>
-
-        <NumberPicker
-            android:id="@+id/numpicker_seconds"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:scaleX="1.2"
             android:scaleY="1.2">
 

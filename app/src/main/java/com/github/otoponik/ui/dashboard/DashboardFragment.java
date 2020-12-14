@@ -21,11 +21,11 @@ import java.util.Map;
 public class DashboardFragment extends Fragment {
 
     private DashboardViewModel dashboardViewModel;
-    private NumberPicker numpicker_hours, numpicker_minutes, numpicker_seconds;
+    private NumberPicker numpicker_hours, numpicker_minutes;
     private Button button_atur;
     private TextView waktu_set;
-    public int hour, minute, second;
-    private String jam, menit, detik;
+    public int hour, minute;
+    private String jam, menit;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -36,7 +36,6 @@ public class DashboardFragment extends Fragment {
         waktu_set = root.findViewById(R.id.text_waktu_set);
         numpicker_hours = root.findViewById(R.id.numpicker_hours);
         numpicker_minutes = root.findViewById(R.id.numpicker_minutes);
-        numpicker_seconds = root.findViewById(R.id.numpicker_seconds);
         button_atur = root.findViewById(R.id.button_atur);
 
         initializePicker();
@@ -46,18 +45,15 @@ public class DashboardFragment extends Fragment {
             public void onClick(View v) {
                 hour = numpicker_hours.getValue();
                 minute = numpicker_minutes.getValue();
-                second = numpicker_seconds.getValue();
 
                 jam = String.format("%02d", hour);
                 menit = String.format("%02d", minute);
-                detik =  String.format("%02d", second);
 
                 // Testing purpose
                 Log.d("Jam : ", jam);
                 Log.d("Menit : ", menit);
-                Log.d("Detik : ", detik);
 
-                waktu_set.setText("Tanaman akan disiram pada: " + jam + ":" + menit + ":" + detik);
+                waktu_set.setText("Tanaman akan disiram pada: " + jam + ":" + menit);
 
                 // Write to database WaktuPenyiraman
                 writeToFirebase();
@@ -84,15 +80,6 @@ public class DashboardFragment extends Fragment {
                 return String.format("%02d", i);
             }
         });
-
-        numpicker_seconds.setMinValue(00);
-        numpicker_seconds.setMaxValue(60);
-        numpicker_seconds.setFormatter(new NumberPicker.Formatter() {
-            @Override
-            public String format(int i) {
-                return String.format("%02d", i);
-            }
-        });
     }
 
     private void writeToFirebase() {
@@ -100,7 +87,7 @@ public class DashboardFragment extends Fragment {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference timeRef = database.getReference("waktuPenyiraman");
 
-        WaktuPenyiraman waktu_penyiraman = new WaktuPenyiraman(hour, minute, second);
+        WaktuPenyiraman waktu_penyiraman = new WaktuPenyiraman(hour, minute);
         Map<String, Object> waktuPenyiraman = waktu_penyiraman.toMap();
 
         timeRef.setValue(waktuPenyiraman);
