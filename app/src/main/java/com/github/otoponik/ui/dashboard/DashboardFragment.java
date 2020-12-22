@@ -24,7 +24,7 @@ public class DashboardFragment extends Fragment {
     private NumberPicker numpicker_hours, numpicker_minutes;
     private Button button_atur;
     private TextView waktu_set;
-    public int hour, minute;
+    public int hour, minute, second;
     private String jam, menit;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -45,6 +45,7 @@ public class DashboardFragment extends Fragment {
             public void onClick(View v) {
                 hour = numpicker_hours.getValue();
                 minute = numpicker_minutes.getValue();
+                second = 0;
 
                 jam = String.format("%02d", hour);
                 menit = String.format("%02d", minute);
@@ -87,7 +88,7 @@ public class DashboardFragment extends Fragment {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference timeRef = database.getReference("waktuPenyiraman");
 
-        WaktuPenyiraman waktu_penyiraman = new WaktuPenyiraman(hour, minute);
+        WaktuPenyiraman waktu_penyiraman = new WaktuPenyiraman(hour, minute, second);
         Map<String, Object> waktuPenyiraman = waktu_penyiraman.toMap();
 
         timeRef.setValue(waktuPenyiraman);
